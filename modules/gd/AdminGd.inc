@@ -114,7 +114,7 @@ class AdminGdView extends GalleryView {
 	    $jpegQualityList[] = $i;
 	}
 
-	list ($ret, $gdVersion) = GdToolkitHelper::discoverGdVersion();
+	list ($ret, $gdVersion) = (new GdToolkitHelper)->discoverGdVersion();
 	if ($ret) {
 	    return array($ret, null);
 	}
