@@ -135,7 +135,7 @@ class GalleryPhpVm {
      * @param boolean $replace (optional)
      */
     function header($string, $replace=null) {
-	if (!GalleryUtilities::isSafeHttpHeader($string)) {
+	if (!(new GalleryUtilities)->isSafeHttpHeader($string)) {
 	    return;
 	}
 

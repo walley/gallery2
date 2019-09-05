@@ -202,14 +202,14 @@ function GalleryInitSecondPass() {
      * Set our active user.  Try getting our active user from registered authentication plugins.  If
      * not, make us the anonymous user.  If we don't have a session, this will initiate one for us.
      */
-    list ($ret, $pluginIds) = GalleryCoreApi::getAllFactoryImplementationIds('GalleryAuthPlugin');
+    list ($ret, $pluginIds) = (new GalleryCoreApi)->getAllFactoryImplementationIds('GalleryAuthPlugin');
     if ($ret) {
 	return $ret;
     }
 
     foreach ($pluginIds as $pluginId => $className) {
 	list ($ret, $plugin) =
-	    GalleryCoreApi::newFactoryInstanceById('GalleryAuthPlugin', $pluginId);
+	    (new GalleryCoreApi)->newFactoryInstanceById('GalleryAuthPlugin', $pluginId);
 	if ($ret) {
 	    return $ret;
 	}

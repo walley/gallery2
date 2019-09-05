@@ -225,7 +225,7 @@ class GalleryCharsetHelper_simple {
  
 	$result = $hasMbSubstr
 	    ? (string)mb_substr($string, $start, $length, 'UTF-8')
-	    : GalleryCharsetHelper_medium::phpUtf8Substring($string, $start, $length);
+	    : (new GalleryCharsetHelper_medium)->phpUtf8Substring($string, $start, $length);
 
 	/* Truncate partial HTML entity at end of result */
 	return preg_replace('/&[^;]{0,6}$/', '', $result);

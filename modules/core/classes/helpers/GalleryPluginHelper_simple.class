@@ -120,7 +120,7 @@ class GalleryPluginHelper_simple {
 	    }
 
 	    /* Verify that the versions match */
-	    list ($ret, $status) = GalleryPluginHelper_simple::fetchPluginStatus($pluginType);
+	    list ($ret, $status) = (new GalleryPluginHelper_simple)->fetchPluginStatus($pluginType);
 	    if ($ret) {
 		return array($ret, null);
 	    }

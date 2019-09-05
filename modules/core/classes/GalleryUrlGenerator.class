@@ -189,7 +189,7 @@ class GalleryUrlGenerator {
 	}
 
 	$args = $flatParams = array();
-	GalleryUrlGenerator::_flattenParamsArray($params, $flatParams);
+	(new GalleryUrlGenerator)->_flattenParamsArray($params, $flatParams);
 
 	foreach ($flatParams as $key => $value) {
 	    if ($addPrefix) {

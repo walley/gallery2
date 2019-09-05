@@ -350,7 +350,7 @@ class GalleryDataCache {
 	global $gallery;
 	$cacheFile = GalleryDataCache::getCachePath($pathInfo);
 	$platform =& $gallery->getPlatform();
-	GalleryUtilities::guaranteeDirExists(dirname($cacheFile));
+	(new GalleryUtilities)->guaranteeDirExists(dirname($cacheFile));
 
 	/* This will either succeed, or leave no trace of its attempt. */
 	$platform->atomicWrite(
@@ -772,7 +772,7 @@ class GalleryDataCache {
 	    return array($ret, null);
 	}
 	$acceleration = unserialize($acceleration);
-	list ($ret, $isAnonymous) = GalleryCoreApi::isAnonymousUser();
+	list ($ret, $isAnonymous) = (new GalleryCoreApi)->isAnonymousUser();
 	if ($ret) {
 	    return array($ret, null);
 	}

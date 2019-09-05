@@ -37,7 +37,7 @@ class GalleryFactoryHelper_simple {
 			     'id' => '_all');
 	GalleryDataCache::removeFromDisk($cacheParams);
 
-	$registry =& GalleryFactoryHelper_simple::_getSingleton();
+	$registry =& (new GalleryFactoryHelper_simple)->_getSingleton();
 	$registry = array();
     }
 
@@ -60,7 +60,7 @@ class GalleryFactoryHelper_simple {
      * @access private
      */
     function &_getFactoryData() {
-	$registry =& GalleryFactoryHelper_simple::_getSingleton();
+	$registry =& (new GalleryFactoryHelper_simple)->_getSingleton();
 	if (empty($registry)) {
 	    $cacheParams = array('type' => 'module',
 				 'itemId' => 'GalleryFactoryHelper_loadRegistry',
@@ -102,7 +102,7 @@ class GalleryFactoryHelper_simple {
      * @see GalleryCoreApi::newFactoryInstanceByHint
      */
     function newInstanceByHint($classType, $hints) {
-	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
+	list ($ret, $registry) = (new GalleryFactoryHelper_simple)->_getFactoryData();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -124,7 +124,7 @@ class GalleryFactoryHelper_simple {
 
 	/* Right now we just use the first available hint */
 	$className = $classNames[0];
-	list ($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
+	list ($ret, $instance) = (new GalleryFactoryHelper_simple)->newInstance($classType, $className);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -138,7 +138,7 @@ class GalleryFactoryHelper_simple {
     function newInstance($classType, $className=null) {
 	global $gallery;
 
-	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
+	list ($ret, $registry) = (new GalleryFactoryHelper_simple)->_getFactoryData();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -188,7 +188,7 @@ class GalleryFactoryHelper_simple {
      * @see GalleryCoreApi::newFactoryInstanceById
      */
     function newInstanceById($classType, $id) {
-	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
+	list ($ret, $registry) = (new GalleryFactoryHelper_simple)->_getFactoryData();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -198,7 +198,7 @@ class GalleryFactoryHelper_simple {
 	}
 
 	$className = $registry['ids'][$classType][$id];
-	list ($ret, $instance) = GalleryFactoryHelper_simple::newInstance($classType, $className);
+	list ($ret, $instance) = (new GalleryFactoryHelper_simple)->newInstance($classType, $className);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -210,7 +210,7 @@ class GalleryFactoryHelper_simple {
      * @see GalleryCoreApi::getAllFactoryImplementationIds
      */
     function getAllImplementationIds($classType) {
-	list ($ret, $registry) = GalleryFactoryHelper_simple::_getFactoryData();
+	list ($ret, $registry) = (new GalleryFactoryHelper_simple)->_getFactoryData();
 	if ($ret) {
 	    return array($ret, null);
 	}

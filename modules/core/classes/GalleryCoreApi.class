@@ -172,7 +172,7 @@ class GalleryCoreApi {
     function newFactoryInstanceById($classType, $id) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryFactoryHelper_simple.class');
-	return GalleryFactoryHelper_simple::newInstanceById($classType, $id);
+	return (new GalleryFactoryHelper_simple)->newInstanceById($classType, $id);
     }
 
     /**
@@ -185,7 +185,7 @@ class GalleryCoreApi {
     function getAllFactoryImplementationIds($classType) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryFactoryHelper_simple.class');
-	return GalleryFactoryHelper_simple::getAllImplementationIds($classType);
+	return (new GalleryFactoryHelper_simple)->getAllImplementationIds($classType);
     }
 
     /**
@@ -364,9 +364,9 @@ class GalleryCoreApi {
      *						     'version' => string)
      */
     static function fetchPluginStatus($pluginType, $ignoreCache=false) {
-	GalleryCoreApi::requireOnce(
+	(new GalleryCoreApi)->requireOnce(
 	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
-	return GalleryPluginHelper_simple::fetchPluginStatus($pluginType, $ignoreCache);
+	return (new GalleryPluginHelper_simple)->fetchPluginStatus($pluginType, $ignoreCache);
     }
 
     /**
@@ -2358,7 +2358,7 @@ class GalleryCoreApi {
     static function loadEntitiesById($ids, $requiredEntityType=null) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryEntityHelper_simple.class');
-	return GalleryEntityHelper_simple::loadEntitiesById($ids, $requiredEntityType);
+	return (new GalleryEntityHelper_simple)->loadEntitiesById($ids, $requiredEntityType);
     }
 
     /**
@@ -3095,7 +3095,7 @@ class GalleryCoreApi {
 	    global $gallery;
 	    $userId = $gallery->getActiveUserId();
 	}
-	list ($ret, $anonymousId) = GalleryCoreApi::getAnonymousUserId();
+	list ($ret, $anonymousId) = (new GalleryCoreApi)->getAnonymousUserId();
 	if ($ret) {
 	    return array($ret, null);
 	}

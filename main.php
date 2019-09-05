@@ -128,7 +128,7 @@ function GalleryMain($embedded=false) {
 		$session =& $gallery->getSession();
 		$ret2 = $session->save(true);
 		if ($ret2) {
-		    GalleryCoreApi::addEventLogEntry(
+		    (new GalleryCoreApi)->addEventLogEntry(
 			'Gallery Error', 'Unable to reset the auth token', $ret2->getAsText());
 		}
 	    }
@@ -209,7 +209,7 @@ function _GalleryMain($embedded=false, $template=null) {
     $results = array();
     if (!empty($controllerName)) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryController.class');
-	list ($ret, $controller) = GalleryController::loadController($controllerName);
+	list ($ret, $controller) = (new GalleryController)->loadController($controllerName);
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -226,7 +226,7 @@ function _GalleryMain($embedded=false, $template=null) {
 
 	if ($gallery->getConfig('mode.maintenance') && !$controller->isAllowedInMaintenance()) {
 	    /* Maintenance mode - allow admins, else redirect to given or standard URL */
-	    list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+	    list ($ret, $isAdmin) = (new GalleryCoreApi)->isUserInSiteAdminGroup();
 	    if ($ret) {
 		return array($ret, null);
 	    }
@@ -303,7 +303,7 @@ function _GalleryMain($embedded=false, $template=null) {
 	    /* Load any errors into the request */
 	    if (!empty($results['error'])) {
 		foreach ($results['error'] as $error) {
-		    GalleryUtilities::putRequestVariable($error, 1);
+		    (new GalleryUtilities)->putRequestVariable($error, 1);
 		}
 	    }
 
@@ -315,7 +315,7 @@ function _GalleryMain($embedded=false, $template=null) {
 		    break;
 
 		default:
-		    GalleryUtilities::putRequestVariable($key, $value);
+		    (new GalleryUtilities)->putRequestVariable($key, $value);
 		    break;
 		}
 	    }
@@ -328,14 +328,14 @@ function _GalleryMain($embedded=false, $template=null) {
 	GalleryUtilities::putRequestVariable('view', $viewName);
     }
 
-    list ($ret, $view) = GalleryView::loadView($viewName);
+    list ($ret, $view) = (new GalleryView)->loadView($viewName);
     if ($ret) {
 	return array($ret, null);
     }
 
     if ($gallery->getConfig('mode.maintenance') && !$view->isAllowedInMaintenance()) {
 	/* Maintenance mode - allow admins, else redirect to given url or show standard view */
-	list ($ret, $isAdmin) = GalleryCoreApi::isUserInSiteAdminGroup();
+	list ($ret, $isAdmin) = (new GalleryCoreApi)->isUserInSiteAdminGroup();
 	if ($ret) {
 	    return array($ret, null);
 	}
@@ -363,7 +363,7 @@ function _GalleryMain($embedded=false, $template=null) {
     }
 
     /* Check if the page is cached and return the cached version, else generate the page */
-    list ($ret, $shouldCache) = GalleryDataCache::shouldCache('read', 'full');
+    list ($ret, $shouldCache) = (new GalleryDataCache)->shouldCache('read', 'full');
     if ($ret) {
 	return array($ret, null);
     }
@@ -371,7 +371,7 @@ function _GalleryMain($embedded=false, $template=null) {
     $html = '';
     if ($shouldCache) {
 	$session =& $gallery->getSession();
-	list ($ret, $html) = GalleryDataCache::getPageData(
+	list ($ret, $html) = (new GalleryDataCache)->getPageData(
 	    'page', $urlGenerator->getCacheableUrl());
 	if ($ret) {
 	    return array($ret, null);

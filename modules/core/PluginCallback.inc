@@ -56,8 +56,7 @@ class PluginCallbackView extends GalleryView {
 	}
 
 	$result = array();
-#	list ($ret, $beforeStates) = $this->getPluginStates();
-	list ($ret, $beforeStates) = getPluginStates();
+	list ($ret, $beforeStates) = $this->getPluginStates();
 	if ($ret) {
 	    $result['status'] = 'error';
 	    $storage->rollbackTransaction();  /* ignore errors here */
@@ -345,7 +344,8 @@ class PluginCallbackView extends GalleryView {
      *               array(moduleId => state, ...)
      * @static
      */
-    static function getPluginStates() {
+
+     function getPluginStates() {
 	$states = array();
 
 	foreach (array('module', 'theme') as $type) {
