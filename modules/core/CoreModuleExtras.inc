@@ -325,7 +325,7 @@ class CoreModuleExtras {
 				   $gallery->i18n('[core] Change item permissions'), 0, array());
 	    $permissions[] = array('delete', $gallery->i18n('[core] Delete item'), 0, array());
 	    foreach ($permissions as $p) {
-		$ret = GalleryCoreApi::registerPermission(
+		$ret = (new GalleryCoreApi)->registerPermission(
 		    $module->getId(), 'core.' . $p[0], $p[1], $p[2], $p[3]);
 		if ($ret) {
 		    $gallery->debug(sprintf('Error: Failed to register a permission, ' .

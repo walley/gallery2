@@ -22,6 +22,7 @@
  * @package Gallery
  */
 
+system("logger start");
 $gallerySetErrorHandler = false;
 include(dirname(__FILE__) . '/bootstrap.inc');
 
@@ -35,14 +36,17 @@ if (!@$gallery->getConfig('setup.password')) {
     return;
 }
 
+
 if ($gallery->isEmbedded()) {
     require_once(dirname(__FILE__) . '/init.inc');
+system("logger not x");
 } else {
     /* If this is a request for a public data file, give it to the user immediately */
     $unsanitizedView = isset($_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view']) ?
 	$_GET[GALLERY_FORM_VARIABLE_PREFIX . 'view'] : null;
     $itemId = (int)(isset($_GET[GALLERY_FORM_VARIABLE_PREFIX . 'itemId']) ?
 		    $_GET[GALLERY_FORM_VARIABLE_PREFIX . 'itemId'] : null);
+
     if ($unsanitizedView == 'core.DownloadItem' && !empty($itemId)) {
 	/*
 	 * Our URLs are immutable because they have the serial numbers embedded.  If the browser
@@ -78,7 +82,9 @@ if ($gallery->isEmbedded()) {
 
     /* Otherwise, proceed with our regular process */
     require_once(dirname(__FILE__) . '/init.inc');
+
     $ret = GalleryInitFirstPass();
+
     if ($ret) {
 	_GalleryMain_errorHandler($ret, null);
 	return;

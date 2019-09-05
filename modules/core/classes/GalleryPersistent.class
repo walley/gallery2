@@ -80,7 +80,7 @@ class GalleryPersistent {
      * @return GalleryStatus a status code
      */
     function resetOriginalValues($resetToNull=false) {
-	list ($ret, $data) = GalleryCoreApi::describeEntity($this->entityType);
+	list ($ret, $data) = (new GalleryCoreApi)->describeEntity($this->entityType);
 	if ($ret) {
 	    return null;
 	}

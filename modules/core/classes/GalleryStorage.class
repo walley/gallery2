@@ -236,6 +236,7 @@ class GalleryStorage {
 	$this->_traceStop();
 
 	if (!$ret) {
+            system("logger GalleryStorage ERROR_STORAGE_FAILURE");
 	    return array(GalleryCoreApi::error(ERROR_STORAGE_FAILURE), null);
 	}
 

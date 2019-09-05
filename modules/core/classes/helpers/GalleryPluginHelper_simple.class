@@ -193,7 +193,7 @@ class GalleryPluginHelper_simple {
     function isPluginCompatibleWithApis($plugin) {
 	$pluginType = $plugin->getPluginType();
 	return GalleryUtilities::isCompatibleWithApi(
-	    $plugin->getRequiredCoreApi(), GalleryCoreApi::getApiVersion()) &&
+	    $plugin->getRequiredCoreApi(), (new GalleryCoreApi)->getApiVersion()) &&
 	    (($pluginType == 'module' &&
 	      GalleryUtilities::isCompatibleWithApi(
 		  $plugin->getRequiredModuleApi(), GalleryModule::getApiVersion())) ||

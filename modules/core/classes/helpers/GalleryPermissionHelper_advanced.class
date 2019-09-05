@@ -752,13 +752,13 @@ class GalleryPermissionHelper_advanced {
 
 	GalleryCoreApi::requireOnce(
 		'modules/core/classes/helpers/GalleryPermissionHelper_simple.class');
-	list ($ret, $permissionTable) = GalleryPermissionHelper_simple::_fetchAllPermissions();
+	list ($ret, $permissionTable) = (new GalleryPermissionHelper_simple)->_fetchAllPermissions();
 	if ($ret) {
 	    return $ret;
 	}
 
 	if (isset($permissionTable[$permissionId])) {
-	    return GalleryCoreApi::error(ERROR_COLLISION, __FILE__, __LINE__,
+	    return (new GalleryCoreApi)->error(ERROR_COLLISION, __FILE__, __LINE__,
 					'Duplicate permission id: ' . $permissionId);
 	}
 

@@ -838,7 +838,7 @@ class GalleryRepository {
 		    if ($ret) {
 			return $ret;
 		    }
-		    $ret = GalleryCoreApi::addMapEntry(
+		    $ret = (new GalleryCoreApi)->addMapEntry(
 			'GalleryPluginPackageMap',
 			array('pluginType' => $pluginType,
 			      'pluginId' => $pluginId,

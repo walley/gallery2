@@ -362,7 +362,7 @@ class GalleryPlatform {
      * @return boolean success or failure
      */
     function atomicWrite($filename, $data) {
-	list ($success, $ignored) = GalleryUtilities::guaranteeDirExists(dirname($filename));
+	list ($success, $ignored) = (new GalleryUtilities)->guaranteeDirExists(dirname($filename));
 	if (!$success) {
 	    global $gallery;
 	    $gallery->debug("atomicWrite($filename): parent directory could not be created");
@@ -1066,6 +1066,7 @@ class GalleryPlatform {
 	    $gallery->debug("chdir($path)");
 	}
 	return chdir($path);
+system ("logger $path");
     }
 
     /**

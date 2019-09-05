@@ -82,9 +82,9 @@ class AdminPluginsView extends GalleryView {
 
 	    $platform =& $gallery->getPlatform();
 	    $g2Dir = dirname(dirname(dirname(__FILE__))) . '/';
-	    GalleryCoreApi::requireOnce('modules/core/PluginCallback.inc');
+	    (new GalleryCoreApi)->requireOnce('modules/core/PluginCallback.inc');
 	    foreach ($pluginStatus[$type] as $pluginId => $status) {
-		list ($ret, $plugin) = GalleryCoreApi::loadPlugin($type, $pluginId, true);
+		list ($ret, $plugin) = (new GalleryCoreApi)->loadPlugin($type, $pluginId, true);
 		if ($ret) {
 		    return array($ret, null);
 		}
@@ -101,7 +101,7 @@ class AdminPluginsView extends GalleryView {
 		     $platform->is_writeable("$g2Dir{$type}s/$pluginId/$type.inc")) ? 1 : 0;
 
 		list ($ret, $entry['state']) =
-		    PluginCallbackView::getPluginState($type, $plugin, $status);
+		    (new PluginCallbackView)->getPluginState($type, $plugin, $status);
 		if ($ret) {
 		    return array($ret, null);
 		}

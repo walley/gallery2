@@ -662,7 +662,7 @@ class GalleryDatabaseExport {
 
 	if (empty($fileName)) {
 	    $dirName = $gallery->getConfig('data.gallery.backup');
-	    list ($exists, $unused) = GalleryUtilities::guaranteeDirExists($dirName);
+	    list ($exists, $unused) = (new GalleryUtilities)->guaranteeDirExists($dirName);
 	    if (!$exists) {
 		return array(GalleryCoreApi::error(ERROR_BAD_PATH, __FILE__, __LINE__,
 					'Unable to open the backup file for output'), null, null);

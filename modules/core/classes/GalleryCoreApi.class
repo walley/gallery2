@@ -282,7 +282,7 @@ class GalleryCoreApi {
     function isPluginCompatibleWithApis($plugin) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
-	return GalleryPluginHelper_simple::isPluginCompatibleWithApis($plugin);
+	return (new GalleryPluginHelper_simple)->isPluginCompatibleWithApis($plugin);
     }
 
     /**
@@ -314,7 +314,7 @@ class GalleryCoreApi {
     function fetchAllPluginParameters($pluginType, $pluginId, $itemId=0) {
 	GalleryCoreApi::requireOnce(
 	    'modules/core/classes/helpers/GalleryPluginHelper_simple.class');
-	return GalleryPluginHelper_simple::fetchAllParameters($pluginType, $pluginId, $itemId);
+	return (new GalleryPluginHelper_simple)->fetchAllParameters($pluginType, $pluginId, $itemId);
     }
 
     /**
@@ -923,9 +923,9 @@ class GalleryCoreApi {
      */
     function registerPermission($module, $permissionId, $description,
 				$flags=0, $composites=array()) {
-	GalleryCoreApi::requireOnce(
+	(new GalleryCoreApi)->requireOnce(
 	    'modules/core/classes/helpers/GalleryPermissionHelper_advanced.class');
-	return GalleryPermissionHelper_advanced::registerPermission(
+	return (new GalleryPermissionHelper_advanced)->registerPermission(
 	    $module, $permissionId, $description, $flags, $composites);
     }
 
@@ -3295,7 +3295,7 @@ class GalleryCoreApi {
      */
     function setMaintenanceMode($mode) {
 	GalleryCoreApi::requireOnce('modules/core/classes/helpers/MaintenanceHelper_simple.class');
-	return MaintenanceHelper_simple::setMaintenanceMode($mode);
+	return (new MaintenanceHelper_simple)->setMaintenanceMode($mode);
     }
 
     /**

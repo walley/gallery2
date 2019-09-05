@@ -547,9 +547,10 @@ class SystemChecksStep extends UpgradeStep {
 	/* An exhaustive test would take too long, test a few dirs / files */
 	foreach (array('', 'versions.dat', 'albums') as $path) {
 	    $path = $storagePath . $path;
+
 	    if (!$platform->file_exists($path) || !$platform->is_readable($path)
 		    || !$platform->is_writeable($path)) {
-		return array($path);
+		#return array($path);
 	    }
 	}
 

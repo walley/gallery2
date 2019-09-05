@@ -59,7 +59,7 @@ class DatabaseBackupStep extends UpgradeStep {
 	/* If Gallery is not in maintenance mode, set it there now */
 	$mode = $gallery->getConfig('mode.maintenance');
 	if (!$mode) {
-	    $ret = GalleryCoreApi::setMaintenanceMode(true);
+	    $ret = (new GalleryCoreApi)->setMaintenanceMode(true);
 	    if ($ret) {
 		$templateData['stackTrace'] = $ret->getAsHtml();
 		$templateData['errors'][] = _('Error attempting to enable maintenance mode.');

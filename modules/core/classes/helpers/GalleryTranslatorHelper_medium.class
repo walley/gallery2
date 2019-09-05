@@ -59,7 +59,7 @@ class GalleryTranslatorHelper_medium {
 		$destinationDir = $g2locale . sprintf($localeDirPattern, $matches[1]);
 
 		list ($success, $created) =
-		    GalleryUtilities::guaranteeDirExists($destinationDir);
+		    (new GalleryUtilities)->guaranteeDirExists($destinationDir);
 		if (!$success) {
 		    return GalleryCoreApi::error(ERROR_PLATFORM_FAILURE);
 		}

@@ -32,9 +32,10 @@ function GalleryInitFirstPass($params=array()) {
     ini_set('magic_quotes_runtime', 0);
     ini_set('magic_quotes_sybase', 0);
     if (function_exists('date_default_timezone_set')) {
-	/* PHP 5.3 requires a default be set before using any date/time functions */
-	@date_default_timezone_set(date_default_timezone_get());
+       /* PHP 5.3 requires a default be set before using any date/time functions */
+       @date_default_timezone_set(date_default_timezone_get());
     }
+
 
     /* Specify that when an assertion fails, we terminate right away */
     assert_options(ASSERT_WARNING, 1);
@@ -116,9 +117,11 @@ function GalleryInitFirstPass($params=array()) {
 	list ($ret, $urlGenerator) = @GalleryCoreApi::newFactoryInstance('GalleryUrlGenerator');
 	/* Swallow ERROR_STORAGE_FAILURE, or automatic upgrading fails */
 	if ($ret && !($ret->getErrorCode() & ERROR_STORAGE_FAILURE)) {
+            system("logger init Configure our url generator return");
 	    return $ret;
 	}
     }
+
     if (!isset($urlGenerator)) {
 	GalleryCoreApi::requireOnce('modules/core/classes/GalleryUrlGenerator.class');
 	$urlGenerator = new GalleryUrlGenerator();
@@ -131,23 +134,30 @@ function GalleryInitFirstPass($params=array()) {
 	isset($params['g2Uri']) ? $params['g2Uri'] : null,
 	isset($params['embedSessionString']) ? $params['embedSessionString'] : null);
     if ($ret) {
+       system("logger init  Allow for overrides from GalleryEmbed  return");
+
 	return $ret;
     }
     $gallery->setUrlGenerator($urlGenerator);
 
+
     /* Initialize our session */
     if (!isset($params['noDatabase'])) {
 	if (isset($params['gallerySessionId'])) {
-	    GalleryCoreApi::requireOnce('modules/core/classes/GallerySession.class');
-	    GalleryUtilities::putRequestVariable(SESSION_ID_PARAMETER, $params['gallerySessionId']);
+	    (new GalleryCoreApi)->requireOnce('modules/core/classes/GallerySession.class');
+	    (new GalleryUtilities)->putRequestVariable(SESSION_ID_PARAMETER, $params['gallerySessionId']);
 	}
+
 	$ret = $gallery->initSession();
 	if ($ret) {
+            system("logger init Initialize our session ret ");
 	    return $ret;
 	}
     } else {
 	$gallery->initEmptySession();
     }
+
+system("logger after Initialize our session");
 
     if (version_compare(phpversion(), '5.0') < 0 && !isset($params['noDatabase'])) {
 	/*
